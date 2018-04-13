@@ -16,12 +16,12 @@
     </ul>
     <script>
         function xxx(node) {
-            var allChildren = node.parentNode.children
-            var array = { length: 0 }
-            for (let i = 0; i < allChildren.length; i++) {
-                if (allChildren[i] !== node) {
+            var allChildren = node.parentNode.children  //获取这个元素的所有兄弟姐妹
+            var array = { length: 0 }                    
+            for (let i = 0; i < allChildren.length; i++) {      
+                if (allChildren[i] !== node) {                
                     array[array.length] = allChildren[i]
-                    array.length += 1
+                    array.length += 1                   
                 }
             }
             return array
@@ -37,6 +37,14 @@
                 }
             }
         }
+        window.wwNode = {}   //命名空间
+        wwNode.xxx = xxx
+        wwNode.addClass = addClass
+
+        wwNode.xxx(tim4)
+        console.log(wwNode.xxx(tim4))
+
+
     </script>
 </body>
 
