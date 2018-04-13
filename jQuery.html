@@ -16,7 +16,7 @@
     </ul>
     <script>
         function xxx(node) {
-          var allChildren = node.parentNode.children
+            var allChildren = node.parentNode.children
             var array = { length: 0 }
             for (let i = 0; i < allChildren.length; i++) {
                 if (allChildren[i] !== node) {
@@ -24,10 +24,19 @@
                     array.length += 1
                 }
             }
-            return array          
+            return array
         }
-        xxx(tim4)
-        console.log(xxx(tim4))
+
+        function addClass(node,classes) {
+            for (let key in classes) {
+                let value = classes[key]
+                if (value) {
+                    node.classList.add(key)
+                } else {
+                    node.classList.remove(key)
+                }
+            }
+        }
     </script>
 </body>
 
