@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JS Bin</title>
+</head>
+
+<body>
+    <ul>
+        <li id="tim1">作文1</li>
+        <li id="tim2">作文2</li>
+        <li id="tim3">作文3</li>
+        <li id="tim4">作文4</li>
+        <li id="tim5">作文5</li>
+    </ul>
+    <script>
+        function xxx(node) {
+          var allChildren = node.parentNode.children
+            var array = { length: 0 }
+            for (let i = 0; i < allChildren.length; i++) {
+                if (allChildren[i] !== node) {
+                    array[array.length] = allChildren[i]
+                    array.length += 1
+                }
+            }
+            return array          
+        }
+        xxx(tim4)
+        console.log(xxx(tim4))
+    </script>
+</body>
+
+</html>

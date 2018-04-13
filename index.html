@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>猜数字游戏</h1>
+        <p>我们选择了一个1到100之间的随机数。看看你是否可以在10回合或更短的时间内猜出它。 如果您的猜测过高或过低，我们会告诉您.</p>
+        输入你猜的数字:
+        <form>
+        <input id="xxx" class="ooo" type="text" name="queding">
+        <input type="button" value="确定" onclick="a()">
+        </form>
+    </div>
+    <script>
+        function a() {
+            let ber = document.getElementById('xxx').value
+            console.log(ber)  
+        }
+
+    </script>
+</body>
+</html>
