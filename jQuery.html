@@ -42,31 +42,74 @@
         // wwNode.addClass = addClass
 
         // wwNode.xxx(tim4)
-        
+
         //上面代码用扩展 Node 接口直接在 Node.prototype 上加函数
-        Node.prototype.allSiblings =  function () {
-                var allChildren = this.parentNode.children  //获取这个元素的所有兄弟姐妹
-                var array = { length: 0 }
-                for (let i = 0; i < allChildren.length; i++) {
-                    if (allChildren[i] !== this) {
-                        array[array.length] = allChildren[i]
-                        array.length += 1
+        // Node.prototype.allSiblings = function () {
+        //     var allChildren = this.parentNode.children  //获取这个元素的所有兄弟姐妹
+        //     var array = { length: 0 }
+        //     for (let i = 0; i < allChildren.length; i++) {
+        //         if (allChildren[i] !== this) {
+        //             array[array.length] = allChildren[i]
+        //             array.length += 1
+        //         }
+        //     }
+        //     return array
+        // }
+
+        // Node.prototype.allClass = function (classes) {
+        //     for (let key in classes) {
+        //         let value = classes[key]
+        //         let madeClass = value ? 'add' : 'remove'
+        //         this.classList[madeClass](key)
+        //     }
+        // }
+
+        // tim3.allSiblings()  // 没有call是隐式指定this  等价于  tim3.allsiblings.call()  
+        // tim3.allClass({ 'a': true })   //等价于  tim3.allClass.call(tim3,{'a':true}) 
+        
+        //新的接口 BetterNode 
+        window.jQuery = function (node) {
+            return {
+                allsiblings: function () {
+                    var allChildren = node.parentNode.children  //获取这个元素的所有兄弟姐妹
+                    var array = { length: 0 }
+                    for (let i = 0; i < allChildren.length; i++) {
+                        if (allChildren[i] !== node) {
+                            array[array.length] = allChildren[i]
+                            array.length += 1
+                        }
+                    }
+                    return array
+                },
+                allClass: function (classes) {
+                    for (let key in classes) {
+                        let value = classes[key]
+                        let madeClass = value ? 'add' : 'remove'
+                        node.classList[madeClass](key)
                     }
                 }
-                return array
             }
+        }
+        var Node2 = jQuery(tim3)  //jQuery接受一个旧的节点，返回一个新的对象，这个对象就是jquery的对象
+        Node2.allsiblings()
+        Node2.allClass()
 
-            Node.prototype.allClass =  function (classes) {
-                for(let key in classes){
-                    let value = classes[key]
-                    let madeClass = value ? 'add' : 'remove'
-                    this.classList[madeClass](key)
-                }
-            }
-            
-            tim3.allSiblings()  // 没有call是隐式指定this  等价于  tim3.allsiblings.call()  
-            tim3.allClass({'a':true})   //等价于  tim3.allClass.call(tim3,{'a':true}) 
-
+        确定是节点还是字符串
+        // window.jQuery = function (nodeOrSelector) {
+        //     let nodes
+        //     if (nodeOrSelector === 'string') {
+        //         let temp = document.querySelector(nodeOrSelector)
+        //         for( let i=0; i< temp.length;i++ ){
+        //             nodes[i] = temp[i]
+        //             node.length = temp.length
+        //         }else if(nodeOrSelector instanceof Node){
+        //             nodes = {
+        //                 0 : nodeOrSelector,
+        //                 length :1
+        //             }
+        //         }
+        //     }
+        // }
     </script>
 </body>
 
