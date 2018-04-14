@@ -5,7 +5,15 @@
     <meta charset="utf-8">
     <title>JS Bin</title>
 </head>
-
+<!-- <style type="text/css">
+    .red {
+        background-color: red;
+        width: 500px;
+        height: 500px;
+    }
+    
+</style> -->
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 <body>
     <ul>
         <li id="tim1">作文1</li>
@@ -14,6 +22,8 @@
         <li id="tim4">作文4</li>
         <li id="tim5">作文5</li>
     </ul>
+    <!-- <div></div>
+    <div></div> -->
     <script>
         // function xxx(node) {
         //     var allChildren = node.parentNode.children  //获取这个元素的所有兄弟姐妹
@@ -66,35 +76,35 @@
 
         // tim3.allSiblings()  // 没有call是隐式指定this  等价于  tim3.allsiblings.call()  
         // tim3.allClass({ 'a': true })   //等价于  tim3.allClass.call(tim3,{'a':true}) 
-        
-        //新的接口 BetterNode 
-        window.jQuery = function (node) {
-            return {
-                allsiblings: function () {
-                    var allChildren = node.parentNode.children  //获取这个元素的所有兄弟姐妹
-                    var array = { length: 0 }
-                    for (let i = 0; i < allChildren.length; i++) {
-                        if (allChildren[i] !== node) {
-                            array[array.length] = allChildren[i]
-                            array.length += 1
-                        }
-                    }
-                    return array
-                },
-                allClass: function (classes) {
-                    for (let key in classes) {
-                        let value = classes[key]
-                        let madeClass = value ? 'add' : 'remove'
-                        node.classList[madeClass](key)
-                    }
-                }
-            }
-        }
-        var Node2 = jQuery(tim3)  //jQuery接受一个旧的节点，返回一个新的对象，这个对象就是jquery的对象
-        Node2.allsiblings()
-        Node2.allClass()
 
-        确定是节点还是字符串
+        //新的接口 BetterNode 
+        // window.jQuery = function (node) {
+        //     return {
+        //         allsiblings: function () {
+        //             var allChildren = node.parentNode.children  //获取这个元素的所有兄弟姐妹
+        //             var array = { length: 0 }
+        //             for (let i = 0; i < allChildren.length; i++) {
+        //                 if (allChildren[i] !== node) {
+        //                     array[array.length] = allChildren[i]
+        //                     array.length += 1
+        //                 }
+        //             }
+        //             return array
+        //         },
+        //         allClass: function (classes) {
+        //             for (let key in classes) {
+        //                 let value = classes[key]
+        //                 let madeClass = value ? 'add' : 'remove'
+        //                 node.classList[madeClass](key)
+        //             }
+        //         }
+        //     }
+        // }
+        // var Node2 = jQuery(tim3)  //jQuery接受一个旧的节点，返回一个新的对象，新的对象由新的API，这个对象就是jQuery的对象
+        // Node2.allsiblings()
+        // Node2.allClass()
+
+        //确定是节点还是字符串
         // window.jQuery = function (nodeOrSelector) {
         //     let nodes
         //     if (nodeOrSelector === 'string') {
@@ -110,6 +120,42 @@
         //         }
         //     }
         // }
+
+
+        window.jQuery = function (nodeOrSelector) {
+            let nodes = {}
+            if (typeof nodeOrSelector === 'string') {
+                let temp = document.querySelectorAll(nodeOrSelector)
+                for (let i = 0; i < temp.length; i++) {
+                    nodes[i] = temp[i]
+                }
+                nodes.length = temp.length
+            } else if (nodeOrSelector instanceof Node) {
+                nodes = {
+                    0: nodeOrSelector,
+                    length: 1
+                }
+            }
+            nodes.addClass = function (classes) {
+                classes.forEach((value) => {
+                    for (let i = 0; i < nodes.lenth; i++) {
+                        nodes[i].classList.add(value)
+                    }
+                })
+            }
+            nodes.getText = function () {
+                texts = []
+                for (let i = 0; i < nodes.length; i++) {
+                    texts.push(nodes[i].textContent)
+                }
+                return texts
+            }
+            return nodes
+        }
+        var node2 = jQuery('ul>li')
+        node2.addClass(['red']) // 可将所有 div 的 class 添加一个 red
+        console.log(node2.getText())
+
     </script>
 </body>
 
