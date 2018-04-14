@@ -15,35 +15,57 @@
         <li id="tim5">作文5</li>
     </ul>
     <script>
-        function xxx(node) {
-            var allChildren = node.parentNode.children  //获取这个元素的所有兄弟姐妹
-            var array = { length: 0 }                    
-            for (let i = 0; i < allChildren.length; i++) {      
-                if (allChildren[i] !== node) {                
-                    array[array.length] = allChildren[i]
-                    array.length += 1                   
+        // function xxx(node) {
+        //     var allChildren = node.parentNode.children  //获取这个元素的所有兄弟姐妹
+        //     var array = { length: 0 }                    
+        //     for (let i = 0; i < allChildren.length; i++) {      
+        //         if (allChildren[i] !== node) {                
+        //             array[array.length] = allChildren[i]
+        //             array.length += 1                   
+        //         }
+        //     }
+        //     return array
+        // }
+
+        // function addClass(node,classes) {
+        //     for (let key in classes) {
+        //         let value = classes[key]
+        //         if (value) {                      //这五行代码可以写成
+        //             node.classList.add(key)       //let madeClass = (value) ? add : remove
+        //         } else {                          // node.classList[madeClass](key)
+        //             node.classList.remove(key)   
+        //         }
+        //     }
+        // }
+        // window.wwNode = {}   //命名空间
+        // wwNode.xxx = xxx
+        // wwNode.addClass = addClass
+
+        // wwNode.xxx(tim4)
+        
+        //上面代码用扩展 Node 接口直接在 Node.prototype 上加函数
+        Node.prototype.allSiblings =  function () {
+                var allChildren = this.parentNode.children  //获取这个元素的所有兄弟姐妹
+                var array = { length: 0 }
+                for (let i = 0; i < allChildren.length; i++) {
+                    if (allChildren[i] !== this) {
+                        array[array.length] = allChildren[i]
+                        array.length += 1
+                    }
+                }
+                return array
+            }
+
+            Node.prototype.allClass =  function (classes) {
+                for(let key in classes){
+                    let value = classes[key]
+                    let madeClass = value ? 'add' : 'remove'
+                    this.classList[madeClass](key)
                 }
             }
-            return array
-        }
-
-        function addClass(node,classes) {
-            for (let key in classes) {
-                let value = classes[key]
-                if (value) {
-                    node.classList.add(key)
-                } else {
-                    node.classList.remove(key)
-                }
-            }
-        }
-        window.wwNode = {}   //命名空间
-        wwNode.xxx = xxx
-        wwNode.addClass = addClass
-
-        wwNode.xxx(tim4)
-        console.log(wwNode.xxx(tim4))
-
+            
+            tim3.allSiblings()  // 没有call是隐式指定this  等价于  tim3.allsiblings.call()  
+            tim3.allClass({'a':true})   //等价于  tim3.allClass.call(tim3,{'a':true}) 
 
     </script>
 </body>
